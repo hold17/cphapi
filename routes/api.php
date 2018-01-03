@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Weapon;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,29 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('weapons', function() {
+    return Weapon::all();
+});
+
+Route::get('weapons/{id}', function($id) {
+    return Weapon::findOrFail($id);
+});
+
+Route::post('weapons', function(Request $request) {
+    return Weapon::create($request->all());
+});
+
+Route::put('weapons/{id}', function(Request $request, $id) {
+    $weapon = Weapon::findOrFail($id);
+    $weapon->update($request->all());
+
+    return $weapon;
+});
+
+Route::delete('weapons/{id}', function($id) {
+    Weapon::find($id)->delete();
+
+    return 204;
 });
