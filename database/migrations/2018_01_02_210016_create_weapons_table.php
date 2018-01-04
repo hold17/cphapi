@@ -15,12 +15,12 @@ class CreateWeaponsTable extends Migration
     {
         Schema::create('weapons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('ip');
-            $table->string('mac');
-            $table->string('model'); // type (Troels)
-            $table->string('propaneTime');
-            $table->string('oxygenTime');
+            $table->string('mac')->unique();
+            $table->string('model')->nullable(); // type (Troels)
+            $table->string('propaneTime')->nullable();
+            $table->string('oxygenTime')->nullable();
 
             $table->timestamps();
         });
