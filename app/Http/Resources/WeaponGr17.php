@@ -31,4 +31,12 @@ class WeaponGr17 extends Resource
             'warnings' => $warnings
         ];
     }
+
+    // public function with($request) {
+    //     return [
+    //         'version' => 'v2.0.0',
+    //         'repository' => 'https://github.com/hold17/cphapi',
+    //         'licence' => 'MIT'
+    //     ];
+    // }
 }
