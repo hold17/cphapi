@@ -8,8 +8,8 @@ class Weapon extends Model
 {
    protected $fillable = [
        'name', 'ip', 'mac', 'model', 
-       'propaneTime', 'oxygenTime', '
-       firemode', 'connection', 'batteryLevel', 
+       'propaneTime', 'oxygenTime', 'connectionStrength',
+       'firemode', 'connection', 'batteryLevel', 
        'propaneLevel', 'oxygenLevel', 'itemType'
     ];
 
