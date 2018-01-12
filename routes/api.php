@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('/weapons')->group(function() {
     Route::get('/', 'WeaponController@index');
+    Route::get('/{grp}/{id}', 'WeaponController@show');
     Route::get('/{id}', 'WeaponController@show');
     Route::post('/', 'WeaponController@store');
     Route::put('/{id}', 'WeaponController@update');

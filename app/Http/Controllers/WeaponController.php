@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Weapon;
+use App\Http\Resources\WeaponGr16 as UserResource16;
+use App\Http\Resources\WeaponGr17 as UserResource17;
 
 use Illuminate\Http\Request;
 
@@ -11,8 +13,13 @@ class WeaponController extends Controller
         return Weapon::all();
     }
 
-    public function show($id) {
-        return Weapon::findOrFail($id);
+    public function show($grp, $id) {
+        $weapon = Weapon::findOrFail($id);
+        // dd($grp);
+
+        if ($grp == "16") return new UserResource16($weapon);
+        elseif ($grp == "17") return new UserResource17($weapon);
+        else return $weapon;
     }
 
     public function store(Request $request) {

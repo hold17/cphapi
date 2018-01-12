@@ -9,11 +9,17 @@ class Weapon extends Model
    protected $fillable = [
        'name', 'ip', 'mac', 'model', 
        'propaneTime', 'oxygenTime', 'connectionStrength',
-       'firemode', 'connection', 'batteryLevel', 
+       'firemode', 'batteryLevel', 
        'propaneLevel', 'oxygenLevel', 'itemType'
     ];
 
+    protected $dates = ['created_at', 'updated_at'];
+
     public function shoot() {
         return $this->belongsToMany('App\Shoot');
+    }
+
+    public function warnings() {
+        return [];
     }
 }
