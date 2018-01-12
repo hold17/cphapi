@@ -22,10 +22,10 @@ class CreateWeaponsTable extends Migration
             $table->integer('connectionStrength'); // 0-4
             $table->integer('batteryLevel');
             $table->string('model')->nullable(); // type (Troels)
-            $table->string('propaneTime')->nullable(); // troels
-            $table->string('propaneLevel')->nullable(); // troels
-            $table->string('oxygenTime')->nullable(); // troels
-            $table->string('oxygenLevel')->nullable(); // troels
+            $table->integer('propaneTime')->nullable(); // troels
+            $table->integer('propaneLevel')->nullable(); // troels
+            $table->integer('oxygenTime')->nullable(); // troels
+            $table->integer('oxygenLevel')->nullable(); // troels
             $table->boolean('itemType')->default(true); // troels
 
             $table->timestamps();
