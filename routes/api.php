@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Weapon;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,29 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('weapons', 'WeaponController@index');
-// Route::get('weapons', 'WeaponController@index');
-Route::get('weapons', function() {
-    return Weapon::all();
-});
-
-Route::get('weapons/{id}', function($id) {
-    return Weapon::findOrFail($id);
-});
-
-Route::post('weapons', function(Request $request) {
-    return Weapon::firstOrCreate($request->all());
-});
-
-Route::put('weapons/{id}', function(Request $request, $id) {
-    $weapon = Weapon::findOrFail($id);
-    $weapon->update($request->all());
-
-    return $weapon;
-});
-
-Route::delete('weapons/{id}', function($id) {
-    Weapon::findOrFail($id)->delete();
-
-    return 204;
+Route::prefix('/weapons')->group(function() {
+    Route::get('/', 'WeaponController@index');
+    Route::get('/{id}', 'WeaponController@show');
+    Route::post('/', 'WeaponController@store');
+    Route::put('/{id}', 'WeaponController@update');
+    Route::delete('/{id}', 'WeaponController@delete');
 });

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Weapon;
 
 use Illuminate\Http\Request;
 
