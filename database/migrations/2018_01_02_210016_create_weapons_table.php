@@ -18,9 +18,15 @@ class CreateWeaponsTable extends Migration
             $table->string('name')->nullable();
             $table->string('ip');
             $table->string('mac')->unique();
+            $table->string('firemode')->default($value = 'safe'); // safe, semi, burst, auto
+            $table->integer('connectionStrength'); // 0-4
+            $table->integer('batteryLevel');
             $table->string('model')->nullable(); // type (Troels)
-            $table->string('propaneTime')->nullable();
-            $table->string('oxygenTime')->nullable();
+            $table->string('propaneTime')->nullable(); // troels
+            $table->string('propaneLevel')->nullable(); // troels
+            $table->string('oxygenTime')->nullable(); // troels
+            $table->string('oxygenLevel')->nullable(); // troels
+            $table->boolean('itemType')->default(true); // troels
 
             $table->timestamps();
         });
