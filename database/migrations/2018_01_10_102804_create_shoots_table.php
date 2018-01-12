@@ -16,7 +16,8 @@ class CreateShootsTable extends Migration
         Schema::create('shoots', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('scene_id');
+            $table->integer('scene_id')->unsigned();
+            // $table->foreign('scene_id')->references('id')->on('scenes');
             $table->timestamps();
         });
     }

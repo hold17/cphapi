@@ -12,7 +12,7 @@ class Shoot extends Model
 
     public function scene()
     {
-        return $this->belongsTo('App\Scene');
+        return $this->belongsTo('App\Scene', 'scene_id');
     }
 
     public function weapons() 

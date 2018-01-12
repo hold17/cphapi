@@ -15,10 +15,10 @@ class ScenesTableSeeder extends Seeder
     {
         Scene::truncate();
 
-        $scenes = factory(Scene::class, 3)
+        $scenes = factory(Scene::class, 4)
             ->create()
             ->each(function ($scene) {
-                $scene->shoots()->save(factory(Shoot::class)->create());
+                $scene->shoots()->saveMany(factory(Shoot::class, 3)->make());
             });
     }
 }

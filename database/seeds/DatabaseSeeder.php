@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ScenesTableSeeder::class,
-            ShootsTableSeeder::class,
+            // ShootsTableSeeder::class,
             WeaponsTableSeeder::class,
         ]);
     }
