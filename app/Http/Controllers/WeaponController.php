@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 use App\Weapon;
-use App\Http\Resources\WeaponGr16 as UserResource16;
-use App\Http\Resources\WeaponGr17 as UserResource17;
+use App\Http\Resources\WeaponGr16 as WeaponResource16;
+use App\Http\Resources\WeaponGr17 as WeaponResource17;
+use App\Http\Resources\WeaponCollection;
 
 use Illuminate\Http\Request;
 
 class WeaponController extends Controller
 {
-    public function index() {
-        return Weapon::all();
+    public function index($grp) {
+        $weapons = Weapon::all();
+        
+        if ($grp == "16") return new WeaponCollection(WeaponResource16::collection($weapons));
+        if ($grp == "17") return new WeaponCollection(WeaponResource17::collection($weapons));
+        else return $weapons;
     }
 
     public function show($grp, $id) {
         $weapon = Weapon::findOrFail($id);
-        // dd($grp);
 
-        if ($grp == "16") return new UserResource16($weapon);
-        elseif ($grp == "17") return new UserResource17($weapon);
+        if ($grp == "16") return new WeaponResource16($weapon);
+        elseif ($grp == "17") return new WeaponResource17($weapon);
         else return $weapon;
     }
 

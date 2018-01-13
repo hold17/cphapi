@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Scene;
 use App\Shoot;
+use App\Weapon;
 use Illuminate\Http\Request;
+
+use App\Http\Resources\Shoot as ShootResource;
+use App\Http\Resources\ShootCollection;
+use App\Http\Resources\Scene as SceneResource;
+use App\Http\Resources\Weapon as WeaponResource;
+use App\Http\Resources\WeaponCollection;
 
 class ShootController extends Controller
 {
@@ -14,17 +22,22 @@ class ShootController extends Controller
      */
     public function index()
     {
-        //
+        return new ShootCollection(ShootResource::collection(Shoot::all()));
+    }
+    
+    public function showScene($shootId) 
+    {
+        return new SceneResource(Shoot::findOrFail($shootId)->scene);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function showWeapons($sceneId, $grp) 
     {
-        //
+        dd(Shoot::findOrFail($sceneId)->weapons);
+        $shoots = Shoot::firstOrFail($sceneId)->weapons;
+
+        if ($grp == "16") return new WeaponCollection(WeaponResource16::collection($weapons));
+        if ($grp == "17") return new WeaponCollection(WeaponResource17::collection($weapons));
+        else return $weapons;
     }
 
     /**
@@ -35,51 +48,44 @@ class ShootController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Shoot::firstOrCreate($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Shoot  $shoot
+     * @param  int  $shootId
      * @return \Illuminate\Http\Response
      */
-    public function show(Shoot $shoot)
+    public function show($shootId)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Shoot  $shoot
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Shoot $shoot)
-    {
-        //
+        return new ShootResource(Shoot::findOrFail($shootId));
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param  int  $shootId
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Shoot  $shoot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shoot $shoot)
+    public function update($shootId, Request $request)
     {
-        //
+        $shoot = Shoot::findOrFail($shootId);
+
+        $shoot->update($request->all());
+
+        return $shoot;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Shoot  $shoot
+     * @param int  $shootId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shoot $shoot)
+    public function destroy($shootId)
     {
-        //
+        Shoot::findOrFail($shootId)->delete();
     }
 }

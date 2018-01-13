@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Scene;
+use App\Shoot;
 use Illuminate\Http\Request;
+
+use App\Http\Resources\Scene as SceneResource;
+use App\Http\Resources\SceneCollection;
+use App\Http\Resources\Shoot as ShootResource;
+use App\Http\Resources\ShootCollection;
 
 class SceneController extends Controller
 {
@@ -14,17 +20,12 @@ class SceneController extends Controller
      */
     public function index()
     {
-        return Scene::all();
+        return new SceneCollection(SceneResource::collection(Scene::all()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function showShoots($id) 
     {
-        //
+        return new ShootCollection(ShootResource::collection((Scene::findOrFail($id)->shoots)));
     }
 
     /**
@@ -35,51 +36,46 @@ class SceneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Scene::firstOrCreate($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Scene  $scene
+     * @param  int  $sceneId
      * @return \Illuminate\Http\Response
      */
-    public function show(Scene $scene)
+    public function show($sceneId)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Scene  $scene
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Scene $scene)
-    {
-        //
+        return new SceneResource(Scene::findOrFail($sceneId));
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param  int  $sceneId
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Scene  $scene
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Scene $scene)
+    public function update($sceneId, Request $request)
     {
-        //
+        $scene = Scene::findOrFail($sceneId);
+
+        $scene->update($request->all());
+
+        return $scene;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Scene  $scene
+     * @param  int  $sceneId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Scene $scene)
+    public function destroy($sceneId)
     {
-        //
+        Scene::findOrFail($sceneId)->delete();
+
+        return 204;
     }
 }
