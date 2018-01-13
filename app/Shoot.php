@@ -17,6 +17,6 @@ class Shoot extends Model
 
     public function weapons() 
     {
-        return $this->hasMany('App\Weapon');
+        return $this->belongsToMany('App\Weapon');
     }
 }
