@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Weapon;
 use App\Http\Resources\WeaponGr16 as WeaponResource16;
 use App\Http\Resources\WeaponGr17 as WeaponResource17;

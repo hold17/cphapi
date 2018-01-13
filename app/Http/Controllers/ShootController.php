@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Scene;
 use App\Shoot;
 use App\Weapon;
-use Illuminate\Http\Request;
 
 use App\Http\Resources\Shoot as ShootResource;
 use App\Http\Resources\ShootCollection;
 use App\Http\Resources\Scene as SceneResource;
-use App\Http\Resources\Weapon as WeaponResource;
+use App\Http\Resources\WeaponGr16 as WeaponResource16;
+use App\Http\Resources\WeaponGr17 as WeaponResource17;
 use App\Http\Resources\WeaponCollection;
+
+use Illuminate\Http\Request;
 
 class ShootController extends Controller
 {
@@ -32,8 +34,11 @@ class ShootController extends Controller
 
     public function showWeapons($sceneId, $grp) 
     {
-        dd(Shoot::findOrFail($sceneId)->weapons);
-        $shoots = Shoot::firstOrFail($sceneId)->weapons;
+        $weapons = Weapon::all();
+
+        // // return new WeaponCollection(WeaponResource17::collection($weapons));
+        $weapons = Shoot::findOrFail($sceneId)->weapons;
+        // // dd($weapons);
 
         if ($grp == "16") return new WeaponCollection(WeaponResource16::collection($weapons));
         if ($grp == "17") return new WeaponCollection(WeaponResource17::collection($weapons));
