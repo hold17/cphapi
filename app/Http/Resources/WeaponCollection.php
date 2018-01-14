@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class WeaponGr17Collection extends ResourceCollection
+class WeaponCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
