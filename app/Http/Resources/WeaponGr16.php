@@ -22,6 +22,8 @@ class WeaponGr16 extends Resource
             'type' => $this->model,
             'name' => $this->name,
             'armed' => $this->firemode == "safe",
+            'connectionStrength' => $this->connectionStrength,
+            'batteryLevel' => $this->batteryLevel,
             'shootingMode' => $this->firemode,
             'propaneLevel' => $this->propaneLevel,
             'oxygenLevel' => $this->oxygenLevel,
