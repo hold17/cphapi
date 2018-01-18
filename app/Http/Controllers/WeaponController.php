@@ -28,12 +28,23 @@ class WeaponController extends Controller
     }
 
     public function store(Request $request) {
-        return Weapon::firstOrCreate($request->all());
+        // dd($request->mac);
+        $weapon = Weapon::get()->where("mac", $request->mac)->first();
+        if ($weapon == null) {
+            return Weapon::create($request->all());
+        } else {
+            // dd("don't make a new one :(");
+            return $weapon;
+        }
+        // return new WeaponResource(Weapon::firstOrCreate($request->all()));
     }
 
     public function update(Request $request, $id) {
         $weapon = Weapon::findOrFail($id);
         $weapon->update($request->all());
+
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $request->ip . "/shootmode" + "/" + $request->firemode);
 
         return $weapon;
     }
